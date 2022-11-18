@@ -69,6 +69,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '551882827746',
     projectId: 'bet-app-ee55d',
     storageBucket: 'bet-app-ee55d.appspot.com',
+    androidClientId: '551882827746-narmnjeovlcs2hku631skb2p3esalkfm.apps.googleusercontent.com',
     iosClientId: '551882827746-lif7olos09gpngmi1765fftage4l9e1d.apps.googleusercontent.com',
     iosBundleId: 'com.example.betApp',
   );

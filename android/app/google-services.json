@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "551882827746-narmnjeovlcs2hku631skb2p3esalkfm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bet_app",
+            "certificate_hash": "ca5716aff9f99b6b583b2e289783f59f513f1a96"
+          }
+        },
+        {
           "client_id": "551882827746-3et53bqtlc9lcbu76b0vape4frlao51c.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +37,13 @@
             {
               "client_id": "551882827746-3et53bqtlc9lcbu76b0vape4frlao51c.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "551882827746-lif7olos09gpngmi1765fftage4l9e1d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.betApp"
+              }
             }
           ]
         }
