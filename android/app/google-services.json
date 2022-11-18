@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "551882827746",
+    "project_id": "bet-app-ee55d",
+    "storage_bucket": "bet-app-ee55d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551882827746:android:f2246812c6ff8987ee7bbb",
+        "android_client_info": {
+          "package_name": "com.example.bet_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551882827746-3et53bqtlc9lcbu76b0vape4frlao51c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwsRq_iwyVeuFj_iTv0O4ZxdkYaC8XAsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551882827746-3et53bqtlc9lcbu76b0vape4frlao51c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
