@@ -5,7 +5,7 @@ import 'package:bet_app/model/appModel.dart';
 class DataRepository {
   // 1
   final CollectionReference collection =
-  FirebaseFirestore.instance.collection('votes');
+  FirebaseFirestore.instance.collection('11222');
   // 2
   Stream<QuerySnapshot> getStream() {
     return collection.snapshots();
@@ -42,5 +42,15 @@ class DataRepository {
   void deleteVote(String id) async {
     // await collection.doc('${vote.id}').delete();
     await collection.doc('${id}').delete();
+  }
+  Future<void> batchDelete() async {
+    WriteBatch batch = FirebaseFirestore.instance.batch();
+
+    FirebaseFirestore.instance.collection("11222").get().then((querySnapshot) {
+      querySnapshot.docs.forEach((document) {
+        print(document.id);
+      });
+      return batch.commit();
+    });
   }
 }
