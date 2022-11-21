@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'HSC Bet app',
-      initialRoute: '/admin',
+      initialRoute: '/',
       routes: {
         '/': (context) => const UserScreen(),
         '/admin': (context) => const AdminScreen(),

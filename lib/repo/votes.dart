@@ -30,7 +30,7 @@ class DataRepository {
     var timestamp = Timestamp.fromMillisecondsSinceEpoch(
         DateTime.now().add(const Duration(hours: 1)).millisecondsSinceEpoch);
     // return collection.where('time' , isEqualTo : '2').snapshots();
-    return collection.get();
+    return collection.orderBy('timematches', descending: false).startAt([timestamp]).get();
   }
 
   Stream<DocumentSnapshot> getVote({required String id}) {

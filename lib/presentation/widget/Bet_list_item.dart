@@ -46,7 +46,18 @@ class _CustomListItemState extends State<CustomListItem> {
                         height: 60,
                         child: GestureDetector(
                           onTap: () {
-                            repository.updateVote(id: widget.id, vote: 1);
+                            if (DateTime.now().isBefore(
+                                (widget.data['timematches'] as Timestamp)
+                                    .toDate())) {
+                              repository.updateVote(id: widget.id, vote: 1);
+                            }else{
+                              const snackBar = SnackBar(
+                                content: Text('Yay! A SnackBar!'),
+                              );
+                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+
+                            }
                           },
                           child: AnimatedContainer(
                               duration: Duration(milliseconds: 200),
@@ -71,8 +82,8 @@ class _CustomListItemState extends State<CustomListItem> {
                                         ]
                                       : []),
                               child: CircleAvatar(
-                                backgroundImage:
-                                    AssetImage(nameToImage(widget.data['team1'])),
+                                backgroundImage: AssetImage(
+                                    nameToImage(widget.data['team1'])),
                               )),
                         )),
                     Padding(
@@ -112,7 +123,7 @@ class _CustomListItemState extends State<CustomListItem> {
                                           )
                                         ]
                                       : []),
-                              child:  CircleAvatar(
+                              child: CircleAvatar(
                                 backgroundImage:
                                     AssetImage("assets/images/x-mark-5-64.png"),
                               )),
@@ -155,8 +166,8 @@ class _CustomListItemState extends State<CustomListItem> {
                                         ]
                                       : []),
                               child: CircleAvatar(
-                                backgroundImage:
-                                    AssetImage(nameToImage(widget.data['team2'])),
+                                backgroundImage: AssetImage(
+                                    nameToImage(widget.data['team2'])),
                               )),
                         )),
                     Padding(
