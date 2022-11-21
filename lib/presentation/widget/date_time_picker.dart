@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
+typedef OnChangeCallback = void Function(dynamic value);
 class DateTimePicker extends StatefulWidget {
-  const DateTimePicker({Key? key}) : super(key: key);
-
+  const DateTimePicker({Key? key, required this.onChanged}) : super(key: key);
+  final OnChangeCallback onChanged;
   @override
   State<DateTimePicker> createState() => _DateTimePickerState();
 }
@@ -10,7 +10,8 @@ class DateTimePicker extends StatefulWidget {
 class _DateTimePickerState extends State<DateTimePicker> {
   var fontstyle = const TextStyle(
       fontSize: 30, color: Colors.white, fontWeight: FontWeight.bold);
-  DateTime dateTime = DateTime(2022, 12, 24, 5, 30);
+  DateTime dateTime = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     final hours = dateTime.hour.toString().padLeft(2, '0');
@@ -33,6 +34,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                   dateTime.minute,
                 );
                 setState(() => dateTime = newDateTime);
+                widget.onChanged(newDateTime);
               },
               child:
               Text('${dateTime.year}/${dateTime.month}/${dateTime.day}')),
@@ -46,6 +48,7 @@ class _DateTimePickerState extends State<DateTimePicker> {
                 final newDateTime = DateTime(dateTime.year, dateTime.month,
                     dateTime.day, time.hour, time.minute);
                 setState(() => dateTime = newDateTime);
+                widget.onChanged(newDateTime);
               },
               child: Text('$hours:$minutes'))
         ],
@@ -53,47 +56,15 @@ class _DateTimePickerState extends State<DateTimePicker> {
     );
   }
 
-  Future<DateTime?> pickDate() => showDatePicker(
-      context: context,
-      initialDate: dateTime,
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2100));
+  Future<DateTime?> pickDate() =>
+      showDatePicker(
+          context: context,
+          initialDate: dateTime,
+          firstDate: DateTime(1900),
+          lastDate: DateTime(2100));
 
-  Future<TimeOfDay?> pickTime() => showTimePicker(
-      context: context,
-      initialTime: TimeOfDay(hour: dateTime.hour, minute: dateTime.minute));
-
-// Future! pickDateTime() async {
-//   DateTime? date = await pickDate();
-//   if (date == null) return;
-//   TimeOfDay? time = await pickTime();
-//   if (time == null) return;
-//   final dateTime =
-//       DateTime(date.year, date.month, date.day, time.hour, time.minute);
-//   setState(() => this.dateTime = dateTime);
-// }
-
+  Future<TimeOfDay?> pickTime() =>
+      showTimePicker(
+          context: context,
+          initialTime: TimeOfDay(hour: dateTime.hour, minute: dateTime.minute));
 }
-
-//  Text('Đội 1'),
-//       Container(
-//         child: Column(children: [
-//           Row(
-//             children: [Text('Tên: '), Text('âssadasd')],
-//           ),
-//           Row(
-//             children: [Text('Tên: '), Text('âssadasd')],
-//           )
-//         ]),
-//       ),
-//       Text('Đội 2'),
-//       Container(
-//         child: Column(children: [
-//           Row(
-//             children: [Text('Tên: '), Text('âssadasd')],
-//           ),
-//           Row(
-//             children: [Text('Tên: '), Text('âssadasd')],
-//           )
-//         ]),
-//       );
