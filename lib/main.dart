@@ -80,89 +80,98 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     TextEditingController _emailController = TextEditingController();
     TextEditingController _passwordController = TextEditingController();
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "My app title",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 28.0,
-              fontWeight: FontWeight.bold,
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: NetworkImage(
+                  'https://static.vecteezy.com/system/resources/previews/005/545/348/original/football-qatar-2022-tournament-background-illustration-football-pattern-for-banner-card-website-burgundy-color-national-flag-qatar-world-cup-2022-vector.jpg'),
+              fit: BoxFit.cover)),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "HSC Zensho",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 28.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          const Text(
-            "Login App",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 44.0,
-              fontWeight: FontWeight.bold,
+            const Text(
+              "WorldCup 2022",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 44.0,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 44.0,
-          ),
-          TextField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              hintText: "User Email",
-              prefixIcon: Icon(Icons.mail, color: Colors.black),
+            const SizedBox(
+              height: 44.0,
             ),
-          ),
-          const SizedBox(
-            height: 26.0,
-          ),
-          TextField(
-            controller: _passwordController,
-            obscureText: true,
-            decoration: const InputDecoration(
-              hintText: "User Password",
-              prefixIcon: Icon(Icons.lock, color: Colors.black),
+            TextField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                hintText: "User Email",
+                hintStyle: TextStyle(color: Colors.white),
+                prefixIcon: Icon(Icons.mail, color: Colors.white),
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 12.0,
-          ),
-          const Text(
-            "Don't Remember",
-            style: TextStyle(color: Colors.blue),
-          ),
-          const SizedBox(
-            height: 88.0,
-          ),
-          Container(
-            width: double.infinity,
-            child: RawMaterialButton(
-              fillColor: const Color(0xFF0069FE),
-              elevation: 0.0,
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0)),
-              onPressed: () async {
-                User? user = await loginUsingEmailPassword(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                    context: context);
-                print("user");
-                if (user != null) {
-                  Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => ProfileScreen()));
-                }
-              },
-              child: const Text(
-                "Login",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
+            const SizedBox(
+              height: 26.0,
+            ),
+            TextField(
+              controller: _passwordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                hintText: "User Password",
+                hintStyle: TextStyle(color: Colors.white),
+                prefixIcon: Icon(Icons.lock, color: Colors.white),
+              ),
+            ),
+            const SizedBox(
+              height: 12.0,
+            ),
+            // const Text(
+            //   "Don't Remember",
+            //   style: TextStyle(color: Colors.blue),
+            // ),
+            const SizedBox(
+              height: 88.0,
+            ),
+            Container(
+              width: double.infinity,
+              child: RawMaterialButton(
+                fillColor: Color.fromARGB(255, 153, 127, 143),
+                elevation: 0.0,
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0)),
+                onPressed: () async {
+                  User? user = await loginUsingEmailPassword(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                      context: context);
+                  print("user");
+                  if (user != null) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => ProfileScreen()));
+                  }
+                },
+                child: const Text(
+                  "Login",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18.0,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
