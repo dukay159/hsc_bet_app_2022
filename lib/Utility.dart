@@ -1,4 +1,4 @@
-String nameToImage(String name) {
+String nameToImage(String? name) {
   switch (name) {
     case "Qatar":
       return "assets/flags_wc/Qatar.png";

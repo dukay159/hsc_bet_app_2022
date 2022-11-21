@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:bet_app/model/appModel.dart';
 import 'package:flutter/material.dart';
 
 class DataRepository {

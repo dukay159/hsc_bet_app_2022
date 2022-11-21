@@ -70,9 +70,9 @@ class _CustomListItemState extends State<CustomListItem> {
                                           )
                                         ]
                                       : []),
-                              child: const CircleAvatar(
+                              child: CircleAvatar(
                                 backgroundImage:
-                                    AssetImage("assets/flags_wc/Japan.png"),
+                                    AssetImage(nameToImage(widget.data['team1'])),
                               )),
                         )),
                     Padding(
@@ -114,7 +114,7 @@ class _CustomListItemState extends State<CustomListItem> {
                                       : []),
                               child:  CircleAvatar(
                                 backgroundImage:
-                                    AssetImage(nameToImage(widget.data['team1'])),
+                                    AssetImage("assets/images/x-mark-5-64.png"),
                               )),
                         )),
                     Padding(
@@ -154,9 +154,9 @@ class _CustomListItemState extends State<CustomListItem> {
                                           )
                                         ]
                                       : []),
-                              child: const CircleAvatar(
+                              child: CircleAvatar(
                                 backgroundImage:
-                                    AssetImage("assets/flags_wc/Brazil.png"),
+                                    AssetImage(nameToImage(widget.data['team2'])),
                               )),
                         )),
                     Padding(

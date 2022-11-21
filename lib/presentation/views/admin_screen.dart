@@ -1,3 +1,4 @@
+import 'package:bet_app/Utility.dart';
 import 'package:bet_app/presentation/widget/date_time_picker.dart';
 import 'package:bet_app/presentation/widget/SelectTeamDropdown.dart';
 import 'package:bet_app/repo/votes.dart';
@@ -90,7 +91,9 @@ class _AdminScreenState extends State<AdminScreen> {
                                 DropdownButtonHideUnderline(
                                   child: SelectTeamDropdown(
                                     onChanged: (value) {
-                                      team1 = value;
+                                      setState(() {
+                                        team1 = value;
+                                      });
                                     },
                                   ),
                                 ),
@@ -105,8 +108,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       top: 15.0, left: 10.0),
-                                  child: Image.asset(
-                                    'assets/flags_wc/Brazil.png',
+                                  child: Image.asset(nameToImage(team1),
                                     fit: BoxFit.cover,
                                     width: 100,
                                     height: 100,
@@ -147,7 +149,9 @@ class _AdminScreenState extends State<AdminScreen> {
                                 DropdownButtonHideUnderline(
                                   child: SelectTeamDropdown(
                                     onChanged: (value) {
-                                      team2 = value;
+                                      setState(() {
+                                        team2 = value;
+                                      });
                                     },
                                   ),
                                 ),
@@ -162,8 +166,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       top: 15.0, left: 10.0),
-                                  child: Image.asset(
-                                    'assets/flags_wc/Brazil.png',
+                                  child: Image.asset(nameToImage(team2),
                                     fit: BoxFit.cover,
                                     width: 100,
                                     height: 100,
