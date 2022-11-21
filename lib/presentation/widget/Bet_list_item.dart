@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bet_app/Utility.dart';
 import 'package:bet_app/repo/votes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -111,9 +112,9 @@ class _CustomListItemState extends State<CustomListItem> {
                                           )
                                         ]
                                       : []),
-                              child: const CircleAvatar(
+                              child:  CircleAvatar(
                                 backgroundImage:
-                                    AssetImage("assets/images/x-mark-5-64.png"),
+                                    AssetImage(nameToImage(widget.data['team1'])),
                               )),
                         )),
                     Padding(
