@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextField(
                           controller: _emailController,
                           decoration: const InputDecoration(
-                              border: InputBorder.none, hintText: "Email")),
+                              border: InputBorder.none, hintText: "ID")),
                     ),
                   ),
                 ),
