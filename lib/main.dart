@@ -1,8 +1,10 @@
+import 'package:bet_app/presentation/views/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'presentation/views/admin_screen.dart';
 import 'presentation/views/user_screen.dart';
+import 'presentation/views/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,11 +20,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'HSC Bet app',
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
         '/': (context) => const UserScreen(),
         '/admin': (context) => const AdminScreen(),
-
+        '/login': ((context) => const LoginScreen())
       },
       // home: UserScreen(),
     );

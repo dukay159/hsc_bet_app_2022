@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class UserScreen extends StatefulWidget {
-  const UserScreen({Key? key, this.onTap}) : super(key: key);
+  const UserScreen({Key? key, this.onTap, this.email}) : super(key: key);
 
   final onTap;
-
+  final String? email;
   @override
   State<UserScreen> createState() => _UserScreenState();
 }
@@ -67,7 +67,7 @@ class _UserScreenState extends State<UserScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 25.0),
-                        child: CustomListItem( id: document.id, data: data),
+                        child: CustomListItem( id: document.id, data: data,),
                       ),
                       const Divider(
                         thickness: 1,
