@@ -5,17 +5,15 @@ import 'package:bet_app/repo/votes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-typedef OnChangeCallback = void Function(dynamic value);
 class CustomListItem extends StatefulWidget {
   const CustomListItem({
     Key? key,
     required this.id,
-    required this.data, required this.function,
+    required this.data,
   }) : super(key: key);
 
   final String id;
   final dynamic data;
-  final OnChangeCallback function;
 
   @override
   State<CustomListItem> createState() => _CustomListItemState();
@@ -48,7 +46,7 @@ class _CustomListItemState extends State<CustomListItem> {
                         height: 60,
                         child: GestureDetector(
                           onTap: () {
-                            if (DateTime.now().isBefore(
+                            if (DateTime.now().add(const Duration(hours: 1)).isBefore(
                                 (widget.data['timematches'] as Timestamp)
                                     .toDate())) {
                               repository.updateVote(id: widget.id, vote: 1);
@@ -57,7 +55,6 @@ class _CustomListItemState extends State<CustomListItem> {
                                 content: Text('Time vote ended!'),
                               );
                                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                widget.function;
                             }
                           },
                           child: AnimatedContainer(
@@ -100,7 +97,7 @@ class _CustomListItemState extends State<CustomListItem> {
                         height: 60,
                         child: GestureDetector(
                           onTap: () {
-                            if (DateTime.now().isBefore(
+                            if (DateTime.now().add(const Duration(hours: 1)).isBefore(
                                 (widget.data['timematches'] as Timestamp)
                                     .toDate())) {
                               repository.updateVote(id: widget.id, vote: 0);
@@ -109,7 +106,6 @@ class _CustomListItemState extends State<CustomListItem> {
                                 content: Text('Time vote was ended!'),
                               );
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                              widget.function;
                             }
                           },
                           child: AnimatedContainer(
@@ -152,7 +148,7 @@ class _CustomListItemState extends State<CustomListItem> {
                         height: 60,
                         child: GestureDetector(
                           onTap: () {
-                            if (DateTime.now().isBefore(
+                            if (DateTime.now().add(const Duration(hours: 1)).isBefore(
                                 (widget.data['timematches'] as Timestamp)
                                     .toDate())) {
                               repository.updateVote(id: widget.id, vote: 2);
@@ -161,7 +157,6 @@ class _CustomListItemState extends State<CustomListItem> {
                                 content: Text('Time vote was ended!'),
                               );
                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                              widget.function;
                             }
                           },
                           child: AnimatedContainer(
