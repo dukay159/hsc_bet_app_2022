@@ -5,15 +5,17 @@ import 'package:bet_app/repo/votes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+typedef OnChangeCallback = void Function(dynamic value);
 class CustomListItem extends StatefulWidget {
   const CustomListItem({
     Key? key,
     required this.id,
-    required this.data,
+    required this.data, required this.function,
   }) : super(key: key);
 
   final String id;
   final dynamic data;
+  final OnChangeCallback function;
 
   @override
   State<CustomListItem> createState() => _CustomListItemState();
@@ -52,11 +54,10 @@ class _CustomListItemState extends State<CustomListItem> {
                               repository.updateVote(id: widget.id, vote: 1);
                             }else{
                               const snackBar = SnackBar(
-                                content: Text('Yay! A SnackBar!'),
+                                content: Text('Time vote ended!'),
                               );
                                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-
+                                widget.function;
                             }
                           },
                           child: AnimatedContainer(
