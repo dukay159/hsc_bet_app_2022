@@ -46,17 +46,15 @@ class _CustomListItemState extends State<CustomListItem> {
                         height: 60,
                         child: GestureDetector(
                           onTap: () {
-                            if (DateTime.now().isBefore(
+                            if (DateTime.now().add(const Duration(hours: 1)).isBefore(
                                 (widget.data['timematches'] as Timestamp)
                                     .toDate())) {
                               repository.updateVote(id: widget.id, vote: 1);
                             }else{
                               const snackBar = SnackBar(
-                                content: Text('Yay! A SnackBar!'),
+                                content: Text('Time vote ended!'),
                               );
                                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-
                             }
                           },
                           child: AnimatedContainer(
@@ -99,7 +97,16 @@ class _CustomListItemState extends State<CustomListItem> {
                         height: 60,
                         child: GestureDetector(
                           onTap: () {
-                            repository.updateVote(id: widget.id, vote: 0);
+                            if (DateTime.now().add(const Duration(hours: 1)).isBefore(
+                                (widget.data['timematches'] as Timestamp)
+                                    .toDate())) {
+                              repository.updateVote(id: widget.id, vote: 0);
+                            }else{
+                              const snackBar = SnackBar(
+                                content: Text('Time vote was ended!'),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            }
                           },
                           child: AnimatedContainer(
                               duration: Duration(milliseconds: 200),
@@ -141,7 +148,16 @@ class _CustomListItemState extends State<CustomListItem> {
                         height: 60,
                         child: GestureDetector(
                           onTap: () {
-                            repository.updateVote(id: widget.id, vote: 2);
+                            if (DateTime.now().add(const Duration(hours: 1)).isBefore(
+                                (widget.data['timematches'] as Timestamp)
+                                    .toDate())) {
+                              repository.updateVote(id: widget.id, vote: 2);
+                            }else{
+                              const snackBar = SnackBar(
+                                content: Text('Time vote was ended!'),
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                            }
                           },
                           child: AnimatedContainer(
                               duration: Duration(milliseconds: 200),

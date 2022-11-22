@@ -26,11 +26,11 @@ class DataRepository {
     'dang.le.duc.anh@zensho.com',
   ];
 
-  Future<QuerySnapshot> getMatches() {
+  Stream<QuerySnapshot> getMatches() {
     var timestamp = Timestamp.fromMillisecondsSinceEpoch(
         DateTime.now().add(const Duration(hours: 1)).millisecondsSinceEpoch);
     // return collection.where('time' , isEqualTo : '2').snapshots();
-    return collection.orderBy('timematches', descending: false).startAt([timestamp]).get();
+    return collection.where('timematches', isGreaterThanOrEqualTo: timestamp).snapshots();
   }
 
   Stream<DocumentSnapshot> getVote({required String id}) {

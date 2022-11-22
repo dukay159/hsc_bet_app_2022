@@ -43,13 +43,17 @@ class _UserScreenState extends State<UserScreen> {
       ),
       body: Container(
         color: const Color.fromARGB(255, 93, 34, 59),
-        child: FutureBuilder<QuerySnapshot>(
-          future: repository.getMatches(),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: repository.getMatches(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
               return Text("Something went wrong");
             }
-            if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: LinearProgressIndicator(),
+              );
+            }else {
               return ListView(
                 children: snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
@@ -63,7 +67,7 @@ class _UserScreenState extends State<UserScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 25.0),
-                        child: CustomListItem( id: document.id, data: data,),
+                        child: CustomListItem( id: document.id, data: data),
                       ),
                       const Divider(
                         thickness: 1,
@@ -76,10 +80,6 @@ class _UserScreenState extends State<UserScreen> {
                 }).toList(),
               );
             }
-
-            return const Center(
-              child: LinearProgressIndicator(),
-            );
           },
         ),
       ),
