@@ -8,29 +8,31 @@ class DataRepository {
   final CollectionReference collection =
       FirebaseFirestore.instance.collection('demo');
   List<String> users = [
-    'bui.van.khoi@zensho.com',
-    'hoang.dinh.chien@zensho.com',
-    'khuat.quang.giang@zensho.com',
-    'le.quang.anh@zensho.com',
-    'le.thi.lan.huong@zensho.com',
-    'luong.minh.trang@zensho.com',
-    'nguyen.anh.van@zensho.com',
-    'nguyen.cam.linh@zensho.com',
-    'nguyen.ngoc.diep@zensho.com',
-    'nguyen.viet.dung@zensho.com',
-    'hsc.admin@zensho.com',
-    'tran.minh.hung@zensho.com',
-    'hsc.admin@zensho.com',
-    'vu.thi.kim.tuyen@zensho.com',
-    'doan.huy.duc@zensho.com',
-    'dang.le.duc.anh@zensho.com',
+    'Z97539'
+        'Z02329'
+        'Z02489'
+        'Z02490'
+        'Z02491'
+        'Z02578'
+        'Z02580'
+        'Z02850'
+        'Z02851'
+        'Z02897'
+        'Z02897'
+        'Z02899'
+        'Z02900'
+        'Z03038'
+        'Z03113'
+        'Z99999'
   ];
 
   Future<QuerySnapshot> getMatches() {
     var timestamp = Timestamp.fromMillisecondsSinceEpoch(
         DateTime.now().add(const Duration(hours: 1)).millisecondsSinceEpoch);
     // return collection.where('time' , isEqualTo : '2').snapshots();
-    return collection.orderBy('timematches', descending: false).startAt([timestamp]).get();
+    return collection
+        .orderBy('timematches', descending: false)
+        .startAt([timestamp]).get();
   }
 
   Stream<DocumentSnapshot> getVote({required String id}) {
