@@ -1,17 +1,30 @@
-// Copyright 2013 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
-// ignore_for_file: public_member_api_docs
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'login.dart';
 
-void main() {
-  runApp(
-    const MaterialApp(
-      title: 'Google Sign In',
-      home: SignInDemo(),
-    ),
-  );
+import 'presentation/views/admin_screen.dart';
+import 'presentation/views/user_screen.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'HSC Bet app',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const UserScreen(),
+        '/admin': (context) => const AdminScreen(),
+
+      },
+      // home: UserScreen(),
+    );
+  }
 }
