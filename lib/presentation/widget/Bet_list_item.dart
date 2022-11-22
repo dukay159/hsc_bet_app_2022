@@ -9,10 +9,10 @@ class CustomListItem extends StatefulWidget {
   const CustomListItem({
     Key? key,
     required this.id,
-    required this.data,
+    required this.data, required this.user,
   }) : super(key: key);
 
-  final String id;
+  final String id;final String user;
   final dynamic data;
 
   @override
@@ -29,13 +29,14 @@ class _CustomListItemState extends State<CustomListItem> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<DocumentSnapshot>(
-        stream: repository.getVote(id: widget.id),
+        stream: repository.getVote(id: widget.id, user: widget.user),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           } else {
             Map<String, dynamic> documentFields =
                 snapshot.data!.data() as Map<String, dynamic>;
+            print(documentFields);
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -49,10 +50,10 @@ class _CustomListItemState extends State<CustomListItem> {
                             if (DateTime.now().add(const Duration(hours: 1)).isBefore(
                                 (widget.data['timematches'] as Timestamp)
                                     .toDate())) {
-                              repository.updateVote(id: widget.id, vote: 1);
+                              repository.updateVote(id: widget.id, vote: 1, user: widget.user);
                             }else{
                               const snackBar = SnackBar(
-                                content: Text('Time vote ended!'),
+                                content: Text('Time vote was ended!'),
                               );
                                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                             }
@@ -100,7 +101,7 @@ class _CustomListItemState extends State<CustomListItem> {
                             if (DateTime.now().add(const Duration(hours: 1)).isBefore(
                                 (widget.data['timematches'] as Timestamp)
                                     .toDate())) {
-                              repository.updateVote(id: widget.id, vote: 0);
+                              repository.updateVote(id: widget.id, vote: 0, user: widget.user);
                             }else{
                               const snackBar = SnackBar(
                                 content: Text('Time vote was ended!'),
@@ -151,7 +152,7 @@ class _CustomListItemState extends State<CustomListItem> {
                             if (DateTime.now().add(const Duration(hours: 1)).isBefore(
                                 (widget.data['timematches'] as Timestamp)
                                     .toDate())) {
-                              repository.updateVote(id: widget.id, vote: 2);
+                              repository.updateVote(id: widget.id, vote: 2, user: widget.user);
                             }else{
                               const snackBar = SnackBar(
                                 content: Text('Time vote was ended!'),

@@ -67,7 +67,7 @@ class _UserScreenState extends State<UserScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 25.0),
-                        child: CustomListItem( id: document.id, data: data,),
+                        child: CustomListItem( id: document.id, data: data, user: widget.email!),
                       ),
                       const Divider(
                         thickness: 1,

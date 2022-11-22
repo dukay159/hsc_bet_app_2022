@@ -8,22 +8,22 @@ class DataRepository {
   final CollectionReference collection =
       FirebaseFirestore.instance.collection('demo');
   List<String> users = [
-    'Z97539'
-        'Z02329'
-        'Z02489'
-        'Z02490'
-        'Z02491'
-        'Z02578'
-        'Z02580'
-        'Z02850'
-        'Z02851'
-        'Z02897'
-        'Z02897'
-        'Z02899'
-        'Z02900'
-        'Z03038'
-        'Z03113'
-        'Z99999'
+        'Z97539',
+        'Z02329',
+        'Z02489',
+        'Z02490',
+        'Z02491',
+        'Z02578',
+        'Z02580',
+        'Z02850',
+        'Z02851',
+        'Z02897',
+        'Z02897',
+        'Z02899',
+        'Z02900',
+        'Z03038',
+        'Z03113',
+        'Z99999',
   ];
 
   Stream<QuerySnapshot> getMatches() {
@@ -33,11 +33,11 @@ class DataRepository {
     return collection.where('timematches', isGreaterThanOrEqualTo: timestamp).snapshots();
   }
 
-  Stream<DocumentSnapshot> getVote({required String id}) {
+  Stream<DocumentSnapshot> getVote({required String id,required String user}) {
     return collection
         .doc(id)
         .collection('votes')
-        .doc('nguyen.viet.dung@zensho.com')
+        .doc(user)
         .snapshots();
   }
 
@@ -72,11 +72,12 @@ class DataRepository {
   Future<void> updateVote({
     required String id,
     required int vote,
+    required String user,
   }) {
     return collection
         .doc(id)
         .collection('votes')
-        .doc('nguyen.viet.dung@zensho.com')
+        .doc(user)
         .update({
           'vote': vote,
           'timevote': DateTime.now() // 42
