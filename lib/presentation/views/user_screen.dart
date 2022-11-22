@@ -14,7 +14,6 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  // List<int> list = [1, 2, 3];
   bool isButtonPressed = false;
 
   void buttonPressed() {}
