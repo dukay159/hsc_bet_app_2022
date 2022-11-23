@@ -28,7 +28,7 @@ class _SelectTeamDropdownState extends State<SelectTeamDropdown> {
     'Poland',
     'France',
     'Australia',
-    'Danmark',
+    'Denmark',
     'Tunisia',
     'Spain',
     'Costa Rica',

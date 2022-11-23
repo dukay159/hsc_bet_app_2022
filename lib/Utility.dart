@@ -28,7 +28,7 @@ String nameToImage(String? name) {
       return "assets/flags_wc/France.png";
     case "Australia":
       return "assets/flags_wc/Australia.png";
-    case "Danmark":
+    case "Denmark":
       return "assets/flags_wc/Danmark.png";
     case "Tunisia":
       return "assets/flags_wc/Tunisia.png";
