@@ -30,7 +30,7 @@ class DataRepository {
     var timestamp = Timestamp.fromMillisecondsSinceEpoch(
         DateTime.now().add(const Duration(hours: 1)).millisecondsSinceEpoch);
     var timestamp2 = Timestamp.fromMillisecondsSinceEpoch(
-        DateTime.now().add(const Duration(days: 2)).millisecondsSinceEpoch);
+        DateTime.now().add(const Duration(days: 1)).millisecondsSinceEpoch);
     // return collection.where('time' , isEqualTo : '2').snapshots();
     return collection
         .where('timematches', isLessThanOrEqualTo: timestamp2)
