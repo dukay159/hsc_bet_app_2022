@@ -15,14 +15,18 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreenState extends State<UserScreen> {
   bool isButtonPressed = false;
-
   void buttonPressed() {}
 
   DateTime now = DateTime.now();
   late String formattedDate;
+  var fontstyleID = const TextStyle(
+      fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold);
   var fontstyle = const TextStyle(
-      fontSize: 15, fontStyle: FontStyle.italic, color: Colors.white);
-  var fontstyleTeam = const TextStyle(fontSize: 20, color: Colors.white);
+      fontSize: 15,
+      fontStyle: FontStyle.italic,
+      color: Color.fromARGB(255, 202, 200, 200));
+  var fontstyleTeam =
+      const TextStyle(fontSize: 20, color: Color.fromARGB(255, 202, 200, 200));
 
   @override
   void initState() {
@@ -45,7 +49,8 @@ class _UserScreenState extends State<UserScreen> {
         color: const Color.fromARGB(255, 93, 34, 59),
         child: StreamBuilder<QuerySnapshot>(
           stream: repository.getMatches(),
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasError) {
               return Text("Something went wrong");
             }
@@ -53,30 +58,39 @@ class _UserScreenState extends State<UserScreen> {
               return const Center(
                 child: LinearProgressIndicator(),
               );
-            }else {
+            } else {
               return ListView(
                 children: snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
-                  document.data()! as Map<String, dynamic>;
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Column(children: [
-                      Text(
-                        DateFormat.yMMMEd().format(data['timematches'].toDate()),
+                      document.data()! as Map<String, dynamic>;
+
+                  return Column(children: [
+                    Stack(
+                      children: <Widget>[
+                        Text(
+                            'GROUP ${document.id.substring(0, document.id.indexOf('-'))}',
+                            style: fontstyleID),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text(
+                        ' ${DateFormat.Hm().format(data['timematches'].toDate())} - ${DateFormat.d().format(data['timematches'].toDate())}/${DateFormat.M().format(data['timematches'].toDate())}/${DateFormat.y().format(data['timematches'].toDate())} ',
                         style: fontstyle,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 25.0),
-                        child: CustomListItem( id: document.id, data: data, user: widget.email!),
-                      ),
-                      const Divider(
-                        thickness: 1,
-                        color: Color.fromARGB(255, 201, 187, 191),
-                        indent: 20,
-                        endIndent: 20,
-                      ),
-                    ]),
-                  );
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 25.0),
+                      child: CustomListItem(
+                          id: document.id, data: data, user: widget.email!),
+                    ),
+                    const Divider(
+                      thickness: 1,
+                      color: Color.fromARGB(255, 201, 187, 191),
+                      indent: 20,
+                      endIndent: 20,
+                    ),
+                  ]);
                 }).toList(),
               );
             }
