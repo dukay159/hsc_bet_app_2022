@@ -39,7 +39,7 @@ class _UserScreenState extends State<UserScreen> {
     final DataRepository repository = DataRepository();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BetWinner'),
+        title: const Text('WC 2022'),
         flexibleSpace: const Image(
           image: AssetImage('assets/images/bgr_worldcup.png'),
           fit: BoxFit.cover,
