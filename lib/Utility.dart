@@ -68,3 +68,42 @@ String nameToImage(String? name) {
       return "assets/images/x-mark-5-64.png";
   }
 }
+
+String idUser(String? id) {
+  switch (id) {
+    case "Z97539":
+      return "島田 保英";
+    case "Z02329":
+      return "Nguyen Khac Tung";
+    case "Z02489":
+      return "Le Quang Anh";
+    case "Z02490":
+      return "Nguyen Cam Linh";
+    case "Z02491":
+      return "Vu Thi Kim Tuyen";
+    case "Z02578":
+      return "Bui Van Khoi";
+    case "Z02580":
+      return "Khuat Quang Giang";
+    case "Z02850":
+      return "Hoang Dinh Chien";
+    case "Z02851":
+      return "Dang Le Duc Anh";
+    case "Z02897":
+      return "Nguyen Anh Van";
+    case "Z02898":
+      return "Le Thi Lan Huong";
+    case "Z02899":
+      return "Nguyen Viet Dung";
+    case "Z02900":
+      return "Doan Huy Duc";
+    case "Z03038":
+      return "Nguyen Ngoc Diep";
+    case "Z03113":
+      return "Luong Minh Trang";
+    case "Z99999":
+      return "Tran Minh Hung";
+    default:
+      return "";
+  }
+}
