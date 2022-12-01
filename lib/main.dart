@@ -1,4 +1,5 @@
 import 'package:bet_app/presentation/views/login_screen.dart';
+import 'package:bet_app/presentation/views/user_home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -20,11 +21,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'HSC WC2022',
-      initialRoute: '/login',
+      initialRoute: '/userHome',
       routes: {
         '/': (context) => const UserScreen(),
         '/admin': (context) => const AdminScreen(),
-        '/login': ((context) => const LoginScreen())
+        '/login': ((context) => const LoginScreen()),
+        '/userHome': ((context) => const UserHome())
       },
       // home: UserScreen(),
     );
