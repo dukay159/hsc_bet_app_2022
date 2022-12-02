@@ -20,6 +20,8 @@ class CustomListItem extends StatefulWidget {
 }
 
 class _CustomListItemState extends State<CustomListItem> {
+   TextEditingController _ = new TextEditingController();
+
   var fontstyle = const TextStyle(
       fontSize: 15, fontStyle: FontStyle.italic, color: Colors.white);
   var fontstyleTeam = const TextStyle(fontSize: 20, color: Colors.white);
