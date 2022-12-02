@@ -186,7 +186,8 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => UserScreen(email: _emailController.text)));
+              builder: (context) => UserScreen(email: _emailController.text))
+              );
     } else {
       setState(() {
         check = true;

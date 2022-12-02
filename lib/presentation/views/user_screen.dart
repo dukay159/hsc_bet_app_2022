@@ -1,4 +1,5 @@
 import 'package:bet_app/presentation/widget/Bet_list_item.dart';
+import 'package:bet_app/presentation/widget/button_done.dart';
 import 'package:bet_app/repo/votes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class UserScreen extends StatefulWidget {
 
   final onTap;
   final String? email;
+
   @override
   State<UserScreen> createState() => _UserScreenState();
 }
@@ -96,6 +98,9 @@ class _UserScreenState extends State<UserScreen> {
             }
           },
         ),
+      ),
+      bottomNavigationBar: ButtonDone(
+        email: widget.email!,
       ),
     );
   }
