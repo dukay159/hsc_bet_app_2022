@@ -7,16 +7,16 @@ import 'package:intl/intl.dart';
 
 import '../widget/Bet_list_item_result.dart';
 
-class ResultScreen extends StatefulWidget {
-  const ResultScreen({Key? key, this.onTap, this.email}) : super(key: key);
+class VoteResultScreen extends StatefulWidget {
+  const VoteResultScreen({Key? key, this.onTap, this.email}) : super(key: key);
 
   final onTap;
   final String? email;
   @override
-  State<ResultScreen> createState() => _ResultScreenState();
+  State<VoteResultScreen> createState() => _VoteResultScreenState();
 }
 
-class _ResultScreenState extends State<ResultScreen> {
+class _VoteResultScreenState extends State<VoteResultScreen> {
   bool isButtonPressed = false;
   void buttonPressed() {}
 
@@ -49,7 +49,10 @@ class _ResultScreenState extends State<ResultScreen> {
         ),
       ),
       body: Container(
-        color: const Color.fromARGB(255, 93, 34, 59),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/bg_app.jpg'), fit: BoxFit.cover),
+        ),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         // child: Text('data'),

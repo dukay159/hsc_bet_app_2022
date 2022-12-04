@@ -1,6 +1,6 @@
 import 'package:bet_app/presentation/components/default_button.dart';
 import 'package:bet_app/presentation/views/login_screen.dart';
-import 'package:bet_app/presentation/views/result.dart';
+import 'package:bet_app/presentation/views/vote_result_screen.dart';
 import 'package:flutter/material.dart';
 
 class ButtonDone extends StatelessWidget {
@@ -37,7 +37,7 @@ class ButtonDone extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  ResultScreen(email: email)));
+                                  VoteResultScreen(email: email)));
                     },
                   ),
                 ),

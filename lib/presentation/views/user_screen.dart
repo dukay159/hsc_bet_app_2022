@@ -48,7 +48,12 @@ class _UserScreenState extends State<UserScreen> {
         ),
       ),
       body: Container(
-        color: const Color.fromARGB(255, 93, 34, 59),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/bg_app.jpg'), fit: BoxFit.cover),
+        ),
         child: StreamBuilder<QuerySnapshot>(
           stream: repository.getMatches(),
           builder:
