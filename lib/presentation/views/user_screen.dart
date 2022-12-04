@@ -1,4 +1,5 @@
 import 'package:bet_app/presentation/widget/Bet_list_item.dart';
+import 'package:bet_app/presentation/widget/button_done.dart';
 import 'package:bet_app/repo/votes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class UserScreen extends StatefulWidget {
 
   final onTap;
   final String? email;
+
   @override
   State<UserScreen> createState() => _UserScreenState();
 }
@@ -46,7 +48,12 @@ class _UserScreenState extends State<UserScreen> {
         ),
       ),
       body: Container(
-        color: const Color.fromARGB(255, 93, 34, 59),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/bg_app.jpg'), fit: BoxFit.cover),
+        ),
         child: StreamBuilder<QuerySnapshot>(
           stream: repository.getMatches(),
           builder:
@@ -96,6 +103,9 @@ class _UserScreenState extends State<UserScreen> {
             }
           },
         ),
+      ),
+      bottomNavigationBar: ButtonDone(
+        email: widget.email!,
       ),
     );
   }
