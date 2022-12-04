@@ -1,11 +1,10 @@
+import 'package:bet_app/repo/votes.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 
 typedef OnChangeCallback = void Function(dynamic value);
 
 class SelectIdDropdown extends StatefulWidget {
   SelectIdDropdown({Key? key, required this.onChanged}) : super(key: key);
-
   final OnChangeCallback onChanged;
 
   @override
@@ -13,44 +12,20 @@ class SelectIdDropdown extends StatefulWidget {
 }
 
 class _SelectIdDropdownState extends State<SelectIdDropdown> {
-  static const List<String> list = <String>[
-    'Qatar',
-    'Ecuador',
-    'Senegal',
-    'Netherlands',
-    'England',
-    'Iran',
-    'USA',
-    'Wales',
-    'Argentina',
-    'Saudi Arabia',
-    'Mexico',
-    'Poland',
-    'France',
-    'Australia',
-    'Denmark',
-    'Tunisia',
-    'Spain',
-    'Costa Rica',
-    'Germany',
-    'Japan',
-    'Belgium',
-    'Canada',
-    'Morocco',
-    'Croatia',
-    'Brazil',
-    'Serbia',
-    'Switzerland',
-    'Cameroon',
-    'Portugal',
-    'Ghana',
-    'Uruguay',
-    'Korea',
-  ];
-
+  List<String> list = [];
   String? dropdownValue;
   @override
+  void initState()  {
+    // TODO: implement initState
+    super.initState();
+    final DataRepository repository = DataRepository();
+    repository.getid().then((value) => setState(() {
+      list = value;
+    }));
+  }
+  @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DropdownButton<String>(

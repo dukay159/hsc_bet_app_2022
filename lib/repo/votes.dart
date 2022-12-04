@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:flutter/material.dart';
-
 class DataRepository {
   final CollectionReference collection =
       FirebaseFirestore.instance.collection('demo');
@@ -40,6 +38,17 @@ class DataRepository {
 
   Stream<DocumentSnapshot> getVote({required String id, required String user}) {
     return collection.doc(id).collection('votes').doc(user).snapshots();
+  }
+  Future<List<String>> getid() async {
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await collection.where('timematches', isLessThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
+        DateTime.now().millisecondsSinceEpoch))
+        .orderBy('timematches', descending: true).get();
+
+    // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.id).toList();
+
+    return allData;
   }
 
   Future<void> addMatch({

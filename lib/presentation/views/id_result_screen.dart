@@ -1,25 +1,25 @@
-import 'package:bet_app/presentation/widget/Bet_list_item.dart';
+import 'package:bet_app/Utility.dart';
 import 'package:bet_app/presentation/widget/SelectIdDrop.dart';
-import 'package:bet_app/presentation/widget/button_done.dart';
 import 'package:bet_app/repo/votes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class IdVoteResultScreen extends StatefulWidget {
-  const IdVoteResultScreen({Key? key, this.onTap, this.email})
+  const IdVoteResultScreen({Key? key})
       : super(key: key);
-
-  final onTap;
-  final String? email;
 
   @override
   State<IdVoteResultScreen> createState() => _IdVoteResultScreenState();
 }
 
 class _IdVoteResultScreenState extends State<IdVoteResultScreen> {
-  String? team1;
+  String? id;
   bool isButtonPressed = false;
+  List<String> vote1 = [];
+  List<String> vote2 = [];
+  List<String> vote0 = [];
+
   void buttonPressed() {}
 
   DateTime now = DateTime.now();
@@ -34,6 +34,8 @@ class _IdVoteResultScreenState extends State<IdVoteResultScreen> {
   var fontstyleTeam =
       const TextStyle(fontSize: 20, color: Color.fromARGB(255, 202, 200, 200));
 
+  final DataRepository repository = DataRepository();
+
   @override
   void initState() {
     super.initState();
@@ -42,7 +44,6 @@ class _IdVoteResultScreenState extends State<IdVoteResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final DataRepository repository = DataRepository();
     return Scaffold(
       appBar: AppBar(
         title: const Text('WC 2022'),
@@ -74,135 +75,311 @@ class _IdVoteResultScreenState extends State<IdVoteResultScreen> {
                       child: SelectIdDropdown(
                         onChanged: (value) {
                           setState(() {
-                            team1 = value;
+                            id = value;
+                            vote0=[];
+                            vote1 = [];
+                            vote2 =[];
+                            repository.collection.doc(id).collection('votes')
+                                .get()
+                                .then((QuerySnapshot querySnapshot) {
+                              querySnapshot.docs.forEach((doc) {
+                                if(doc['vote'] == 2){
+                                  vote2.add(doc.id);
+                                }
+                                if(doc['vote'] == 0){
+                                  vote0.add(doc.id);
+                                }
+                                if(doc['vote'] == 1){
+                                  vote1.add(doc.id);
+                                }
+                              });
+                            });
                           });
                         },
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30.0),
-                    child: Container(
-                      height: 200,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(width: 3.0, color: Colors.white),
-                        // color: Color.fromARGB(255, 193, 30, 79)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            Container(
-                                width: 200,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: (Color.fromRGBO(53, 184, 172, 1)),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Team 1 Win',
-                                    style: fontstyleID,
-                                  ),
-                                )),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Doan Huy Duc',
-                                style: fontstyle,
+                  id != null ? FutureBuilder<DocumentSnapshot>(
+                    future: repository.collection.doc(id).get(),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return Text("Something went wrong");
+                      }
+
+                      if (snapshot.hasData && !snapshot.data!.exists) {
+                        return Text("Document does not exist");
+                      }
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                        return Column(children: [
+                          vote1.isNotEmpty ? Padding(
+                            padding: const EdgeInsets.only(top: 30.0),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(width: 3.0, color: Colors.white),
+                                // color: Color.fromARGB(255, 193, 30, 79)
                               ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30.0),
-                    child: Container(
-                      height: 200,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(width: 3.0, color: Colors.white),
-                        // color: Color.fromARGB(255, 193, 30, 79)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            Container(
-                                width: 200,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: (Color.fromRGBO(53, 184, 172, 1)),
-                                  borderRadius: BorderRadius.circular(15),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                        width: 200,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: (Color.fromRGBO(53, 184, 172, 1)),
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "${data['team1']}",
+                                            style: fontstyleID,
+                                          ),
+                                        )),
+                                    ...vote1.map((e) => Container(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        idUser(e),
+                                        style: fontstyle,
+                                      ),
+                                    )),
+                                  ],
                                 ),
-                                child: Center(
-                                  child: Text(
-                                    'DRAW',
-                                    style: fontstyleID,
-                                  ),
-                                )),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Doan Huy Duc',
-                                style: fontstyle,
                               ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30.0),
-                    child: Container(
-                      height: 200,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(width: 3.0, color: Colors.white),
-                        // color: Color.fromARGB(255, 193, 30, 79)
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          children: [
-                            Container(
-                                width: 200,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  color: (Color.fromRGBO(53, 184, 172, 1)),
-                                  borderRadius: BorderRadius.circular(15),
+                            ),
+                          ): Container(),
+                          vote0.isNotEmpty ?Padding(
+                            padding: const EdgeInsets.only(top: 30.0),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(width: 3.0, color: Colors.white),
+                                // color: Color.fromARGB(255, 193, 30, 79)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                        width: 200,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: (Color.fromRGBO(53, 184, 172, 1)),
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'DRAW',
+                                            style: fontstyleID,
+                                          ),
+                                        )),
+                                    ...vote0.map((e) => Container(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        idUser(e),
+                                        style: fontstyle,
+                                      ),
+                                    )),
+                                  ],
                                 ),
-                                child: Center(
-                                  child: Text(
-                                    'Team 2 Win',
-                                    style: fontstyleID,
-                                  ),
-                                )),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Doan Huy Duc',
-                                style: fontstyle,
                               ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                            ),
+                          ): Container(),
+                          vote2.isNotEmpty?Padding(
+                            padding: const EdgeInsets.only(top: 30.0),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(width: 3.0, color: Colors.white),
+                                // color: Color.fromARGB(255, 193, 30, 79)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                        width: 200,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          color: (Color.fromRGBO(53, 184, 172, 1)),
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            "${data['team2']}",
+                                            style: fontstyleID,
+                                          ),
+                                        )),
+                                    ...vote2.map((e) => Container(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        idUser(e),
+                                        style: fontstyle,
+                                      ),
+                                    )),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ): Container(),
+                        ],);
+                      }
+
+                      return Text("loading");
+                    },
+                  ): Container()
+
                 ],
               )
             ],
           ),
         ),
       ),
+    );
+  }
+  Widget VoteContainer(int vote){
+    return FutureBuilder<QuerySnapshot>(
+      future: repository.collection.doc(id).collection('votes').get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Text("Something went wrong");
+        }
+
+        if (!snapshot.hasData) {
+          return Text("Document does not exist");
+        }
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data = snapshot.data! as Map<String, dynamic>;
+          print(data['votes']);
+          return Column(children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: Container(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 3.0, color: Colors.white),
+                  // color: Color.fromARGB(255, 193, 30, 79)
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Container(
+                          width: 200,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: (Color.fromRGBO(53, 184, 172, 1)),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "${data['team1']} Win",
+                              style: fontstyleID,
+                            ),
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Doan Huy Duc',
+                          style: fontstyle,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: Container(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 3.0, color: Colors.white),
+                  // color: Color.fromARGB(255, 193, 30, 79)
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Container(
+                          width: 200,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: (Color.fromRGBO(53, 184, 172, 1)),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'DRAW',
+                              style: fontstyleID,
+                            ),
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Doan Huy Duc',
+                          style: fontstyle,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: Container(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 3.0, color: Colors.white),
+                  // color: Color.fromARGB(255, 193, 30, 79)
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Container(
+                          width: 200,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: (Color.fromRGBO(53, 184, 172, 1)),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "${data['team2']} Win",
+                              style: fontstyleID,
+                            ),
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Doan Huy Duc',
+                          style: fontstyle,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],);
+        }
+
+        return Text("loading");
+      },
     );
   }
 }
