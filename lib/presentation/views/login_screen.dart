@@ -1,4 +1,5 @@
 import 'package:bet_app/model/acc.dart';
+import 'package:bet_app/presentation/views/user_home_screen.dart';
 import 'package:bet_app/presentation/views/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -186,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => UserScreen(email: _emailController.text))
+              builder: (context) => UserHome(email: _emailController.text))
               );
     } else {
       setState(() {

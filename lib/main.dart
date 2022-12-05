@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'HSC WC2022',
-      initialRoute: '/id_voted',
+      initialRoute: '/login',
       routes: {
         '/': (context) => const UserScreen(),
         '/admin': (context) => const AdminScreen(),
