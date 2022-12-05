@@ -24,12 +24,14 @@ class _LoginScreenState extends State<LoginScreen> {
       _passWordController.text = prefs.getString('password') ?? '';
     });
   }
+
   @override
-  void initState(){
+  void initState() {
     // TODO: implement initState
     loadData();
     super.initState();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -46,8 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: NetworkImage(
-                    'https://static.vecteezy.com/system/resources/previews/005/545/348/non_2x/football-qatar-2022-tournament-background-illustration-football-pattern-for-banner-card-website-burgundy-color-national-flag-qatar-world-cup-2022-vector.jpg'),
+                image: AssetImage('assets/images/bg_app.jpg'),
                 fit: BoxFit.cover),
           ),
           child: Center(
@@ -113,7 +114,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 10,
                 ),
                 CheckboxListTile(
-                  title: const Text("Remember Login"),
+                  title: const Text("Remember Login",
+                      style: TextStyle(color: Colors.white)),
                   value: checkedValue,
                   onChanged: (newValue) {
                     setState(() {
@@ -121,8 +123,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                   },
                   checkColor: Colors.deepPurple,
-                  activeColor: const Color(0xff56042c),
-                  controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+                  activeColor: Color.fromARGB(255, 255, 255, 255),
+                  controlAffinity:
+                      ListTileControlAffinity.leading, //  <-- leading Checkbox
                 ),
                 Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -165,7 +168,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _login() async {
-
     var emailSuccessful = accounts.firstWhere(
         (element) => element.email == _emailController.text,
         orElse: () => accounts.elementAt(0));
@@ -176,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (emailSuccessful.email == _emailController.text &&
         passSuccessful.pass == _passWordController.text) {
-      if(checkedValue){
+      if (checkedValue) {
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('email', _emailController.text);
         prefs.setString('password', _passWordController.text);
@@ -187,8 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => UserHome(email: _emailController.text))
-              );
+              builder: (context) => UserHome(email: _emailController.text)));
     } else {
       setState(() {
         check = true;

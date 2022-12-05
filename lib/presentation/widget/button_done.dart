@@ -12,7 +12,10 @@ class ButtonDone extends StatelessWidget {
     var textStyle = const TextStyle(fontSize: 15);
     return Container(
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 93, 34, 59),
+        image: DecorationImage(
+          image: AssetImage('assets/images/bg_done.jpg'),
+          fit: BoxFit.fill,
+        ),
         boxShadow: [
           BoxShadow(
             offset: Offset(0, -20),
@@ -26,7 +29,7 @@ class ButtonDone extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 25.0),
+              padding: const EdgeInsets.all(25.0),
               child: Center(
                 child: SizedBox(
                   width: 190,
