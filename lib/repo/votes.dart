@@ -39,14 +39,16 @@ class DataRepository {
   Stream<DocumentSnapshot> getVote({required String id, required String user}) {
     return collection.doc(id).collection('votes').doc(user).snapshots();
   }
-  Future<List<String>> getid() async {
+  Future<List<QueryDocumentSnapshot<Object?>>> getid() async {
     // Get docs from collection reference
     QuerySnapshot querySnapshot = await collection.where('timematches', isLessThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
         DateTime.now().millisecondsSinceEpoch))
         .orderBy('timematches', descending: true).get();
 
     // Get data from docs and convert map to List
-    final allData = querySnapshot.docs.map((doc) => doc.id).toList();
+    final allData = querySnapshot.docs.map((doc) {
+      return doc;
+    }).toList();
 
     return allData;
   }

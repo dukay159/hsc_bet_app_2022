@@ -1,5 +1,7 @@
 import 'package:bet_app/repo/votes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 typedef OnChangeCallback = void Function(dynamic value);
 
@@ -12,7 +14,7 @@ class SelectIdDropdown extends StatefulWidget {
 }
 
 class _SelectIdDropdownState extends State<SelectIdDropdown> {
-  List<String> list = [];
+  List<QueryDocumentSnapshot<Object?>> list = [];
   String? dropdownValue;
   @override
   void initState()  {
@@ -25,7 +27,6 @@ class _SelectIdDropdownState extends State<SelectIdDropdown> {
   }
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DropdownButton<String>(
@@ -48,10 +49,12 @@ class _SelectIdDropdownState extends State<SelectIdDropdown> {
           });
           widget.onChanged(value);
         },
-        items: list.map<DropdownMenuItem<String>>((String value) {
+        items: list.map<DropdownMenuItem<String>>((QueryDocumentSnapshot value) {
+          Map<String, dynamic> data =
+          value.data()! as Map<String, dynamic>;
           return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
+            value: value.id,
+            child: Text('${DateFormat.d().format(data['timematches'].toDate())}/${DateFormat.M().format(data['timematches'].toDate())} ${data['team1']} - ${data['team2']}'),
           );
         }).toList(),
       ),
